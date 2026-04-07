@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: poshansetu-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/CPAnti2
+    username: root
+    password: 80213280@Study
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    secret: UbYC6WZH5UI2r0WPPW+0eTX3PNE8DyR2jApgcV9ZcLY=
+    expiration: 86400000
+
+ml:
+  malnutrition:
+    url: http://localhost:5001
+  pregnancy:
+    url: http://localhost:5002
+  vaccine:
+    url: http://localhost:5003
+  nutrition:
+    url: http://localhost:5004
+
+twilio:
+  account-sid: <your_twilio_account_sid>
+  auth-token: <your_twilio_auth_token>
+
+notifications:
+  enabled: true

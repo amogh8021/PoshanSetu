@@ -1,0 +1,27 @@
+# Frontend
+poshansetu-frontend/node_modules/
+poshansetu-frontend/dist/
+poshansetu-frontend/.vite/
+
+# Backend
+poshansetu-backend/target/
+poshansetu-backend/.settings/
+poshansetu-backend/.classpath
+poshansetu-backend/.project
+poshansetu-backend/.factorypath
+poshansetu-backend/.recommenders/
+
+# ML Service
+poshansetu-ml/__pycache__/
+poshansetu-ml/env/
+poshansetu-ml/venv/
+*.pkl
+*.pyc
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+*.log
+tmp/
+.gemini/
