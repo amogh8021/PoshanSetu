@@ -29,6 +29,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ApiResponse<User> register(@Valid @RequestBody RegisterRequest req) {
+        if (userRepository.findFirstByPhone(req.getPhone()).isPresent()) {
+            return new ApiResponse<>("ERROR", "Phone number already registered", null);
+        }
         User user = User.builder()
                 .fullName(req.getFullName())
                 .phone(req.getPhone())
@@ -43,19 +46,17 @@ public class AuthController {
     @PostMapping("/login")
     public ApiResponse<String> login(@Valid @RequestBody LoginRequest req) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(req.getPhone(), req.getPassword())
-        );
+                new UsernamePasswordAuthenticationToken(req.getPhone(), req.getPassword()));
 
-        User user = userRepository.findByPhone(req.getPhone())
+        User user = userRepository.findFirstByPhone(req.getPhone())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.getPhone());
-        
+
         java.util.Map<String, Object> extraClaims = new java.util.HashMap<>();
         extraClaims.put("userId", user.getId());
         extraClaims.put("anganwadiId", user.getAnganwadiId());
-        
-        String token = jwtUtil.generateToken(userDetails, "ROLE_" + user.getRole().name(), extraClaims);
 
+        String token = jwtUtil.generateToken(userDetails, "ROLE_" + user.getRole().name(), extraClaims);
 
         return new ApiResponse<>("SUCCESS", "Login successful", token);
     }

@@ -20,6 +20,7 @@ public class User {
     private UUID id;
 
     private String fullName;
+    @Column(unique = true)
     private String phone;
     private String passwordHash;
 
